@@ -10,7 +10,7 @@ public class TP {
 	private static float[] bonus;
 	private static float[] descontos;
 
-	private static final int TAMANHO = 2;		
+	private static final int TAMANHO = 4; 		
 
 	private static void imprimir() {		
 		for (int i = 0; i < TAMANHO; i++) {
@@ -93,7 +93,11 @@ public class TP {
 				System.out.print("Informe o funcionário para impressão: ");						
 				int id = in.nextInt();
 
-				imprimir(id);
+				if(id >= 0 && id < pos) {
+					imprimir(id);
+				} else {
+					System.out.println("O índice ["+id+"] é inválido!!!");
+				}
 				break;
 
 			case "3":
@@ -105,6 +109,7 @@ public class TP {
 				break;
 
 			default:
+				System.out.println("A opção ["+opcao+"] inválida");
 				break;
 			}
 		} while (!"4".equalsIgnoreCase(opcao));
