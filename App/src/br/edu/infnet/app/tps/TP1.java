@@ -1,8 +1,8 @@
-package br.edu.infnet.app.testes;
+package br.edu.infnet.app.tps;
 
 import java.util.Scanner;
 
-public class TP {
+public class TP1 {
 
 	private static String[] nomes;
 	private static int[] idades;

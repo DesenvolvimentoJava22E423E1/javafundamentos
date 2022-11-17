@@ -4,14 +4,14 @@ import br.edu.infnet.app.auxiliar.Constante;
 
 public class Funcionario {
 
-	public String nome;
-	public int idade;
-	public float salario;
-	public float bonus;
-	public float desconto;
+	private String nome;
+	private int idade;
+	private float salario;
 	
 	public Funcionario() {
 		this.nome = Constante.NOME_PADRAO;
+		this.idade = Constante.MAIOR_IDADE;
+		this.salario = Constante.SALARIO_MINIMO;
 	}
 	
 	public Funcionario(String nome, int idade) {
@@ -20,20 +20,17 @@ public class Funcionario {
 		this.idade = idade;
 	}
 	
-	public Funcionario(String nome, int idade, float salario, float bonus, float desconto) {
+	public Funcionario(String nome, int idade, float salario) {
 		this(nome, idade);
 		this.salario = salario;
-		this.bonus = bonus;
-		this.desconto = desconto;		
 	}
 
 	@Override
 	public String toString() {
-		return nome + ";" + idade + ";" + salario + ";" + bonus + ";" + desconto;
+		return nome + ";" + idade + ";" + salario;
 	}
 	
-	public void imprimir(){
-		
+	public void imprimir(){		
 		float salarioLiquido = calcularSalarioLiquido();
 		
 		System.out.println("Funcionário: " + this);
@@ -41,14 +38,38 @@ public class Funcionario {
 		System.out.println("Situação = " + obterSituacao(salarioLiquido));
 	}
 
-	private float calcularSalarioLiquido(){
-		return salario + bonus - desconto;
+	public float calcularSalarioLiquido(){
+		return salario;
 	}
 	
-	private String obterSituacao(float salarioLiquido){		
-		if(salarioLiquido >= Constante.SALARIO_LIQUIDO_PADRAO) {
+	public String obterSituacao(float salarioLiquido){		
+		if(salarioLiquido >= Constante.SALARIO_LIQUIDO_MAXIMO) {
 			return Constante.RICO;
 		}		
 		return Constante.POBRE;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public int getIdade() {
+		return idade;
+	}
+
+	public void setIdade(int idade) {
+		this.idade = idade;
+	}
+
+	public float getSalario() {
+		return salario;
+	}
+
+	public void setSalario(float salario) {
+		this.salario = salario;
 	}
 }
