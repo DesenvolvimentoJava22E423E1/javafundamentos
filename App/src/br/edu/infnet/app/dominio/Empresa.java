@@ -1,16 +1,19 @@
 package br.edu.infnet.app.dominio;
 
+import br.edu.infnet.app.exceptions.FaturamentoInvalidoException;
+import br.edu.infnet.app.exceptions.NomeIncompletoException;
+
 public class Empresa {
 
 	private String nome;
 	private String sobrenome;
 	private String ultimoNome;
+	private float faturamento;
 	private Funcionario[] funcionarios;
 
 	@Override
 	public String toString() {
-		return getNome();
-		//return nome + ";" + sobrenome + ";" + ultimoNome;
+		return nome + ";" + sobrenome + ";" + ultimoNome + ";" + faturamento;
 	}
 	
 	private float calcularFolhaSalarial() {
@@ -41,8 +44,8 @@ public class Empresa {
 		return funcionarios != null ? funcionarios.length : 0;
 	}
 	
-	public void imprimir() {
-		System.out.println("Empresa: " + this);
+	public void imprimir() throws NomeIncompletoException {
+		System.out.println("Empresa: " + getNome());
 		
 		System.out.println("Qtde Funcionários: " + calcularQtdeFuncionarios());
 
@@ -51,7 +54,11 @@ public class Empresa {
 		impressaoFuncionarios();
 	}
 
-	public String getNome() {
+	public String getNome() throws NomeIncompletoException {
+		
+		if(nome == null || sobrenome == null || ultimoNome == null) {
+			throw new NomeIncompletoException("O preenchimento do campo 'nome' está incorreto");
+		}
 
 		StringBuilder sb = new StringBuilder();
 		sb.append(ultimoNome.toUpperCase().charAt(0));
@@ -62,18 +69,35 @@ public class Empresa {
 		sb.append(" ");
 		sb.append(sobrenome.toLowerCase());
 		sb.append(".");
-
+		
 		return sb.toString();
 	}
-	public void setNome(String nome) {
+	
+	public void setNome(String nome) throws NomeIncompletoException {
+		
+		if(nome == null) {
+			throw new NomeIncompletoException("O preenchimento do campo 'nome' está incorreto");
+		}
 		
 		int posInicial = nome.indexOf(" ");
 		int posFinal = nome.lastIndexOf(" ");
+		
+		if(posInicial < 0 || posFinal < 0) {
+			throw new NomeIncompletoException("O preenchimento do campo 'nome' está incorreto");
+		}
 
 		this.nome = nome.substring(0, posInicial);
 		this.sobrenome = nome.substring(posInicial, posFinal).trim();
 		this.ultimoNome = nome.substring(posFinal).trim();
 	}	
+	public void setFaturamento(float faturamento) throws FaturamentoInvalidoException {
+		
+		if(faturamento < 0) {
+			throw new FaturamentoInvalidoException("O valor do faturamento precisa positivo");
+		}
+		
+		this.faturamento = faturamento;
+	}
 	public Funcionario[] getFuncionarios() {
 		return funcionarios;
 	}
