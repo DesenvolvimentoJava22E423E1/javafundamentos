@@ -6,6 +6,7 @@ public class Administrativo extends Funcionario {
 	private float desconto;
 
 	public Administrativo() {
+		this.setNome("Admin");
 	}
 	
 	public Administrativo(String nome, int idade) {
