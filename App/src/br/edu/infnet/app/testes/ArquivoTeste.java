@@ -47,7 +47,7 @@ public class ArquivoTeste {
 						a.setBonus(Float.valueOf(campos[4]));
 						a.setDesconto(Float.valueOf(campos[5]));
 
-						escrita.write(a.getNome()+";"+a.calcularSalarioLiquido()+"\r\n");						
+						escrita.write(a.obterStringSalarioPorFuncionario());
 						qtde++;
 						valor = valor + a.calcularSalarioLiquido();
 
@@ -61,7 +61,7 @@ public class ArquivoTeste {
 						e.setPeriodo(Integer.valueOf(campos[5]));
 						e.setSalario(Float.valueOf(campos[3]));
 
-						escrita.write(e.getNome()+";"+e.calcularSalarioLiquido()+"\r\n");
+						escrita.write(e.obterStringSalarioPorFuncionario());
 						qtde++;
 						valor = valor + e.calcularSalarioLiquido();
 
@@ -73,7 +73,7 @@ public class ArquivoTeste {
 						p.setLinguagem(campos[4]);
 						p.setSalario(Float.valueOf(campos[3]));
 
-						escrita.write(p.getNome()+";"+p.calcularSalarioLiquido()+"\r\n");
+						escrita.write(p.obterStringSalarioPorFuncionario());
 						qtde++;
 						valor = valor + p.calcularSalarioLiquido();
 

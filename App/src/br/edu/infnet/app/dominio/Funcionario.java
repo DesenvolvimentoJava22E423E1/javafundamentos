@@ -48,6 +48,18 @@ public class Funcionario {
 		}		
 		return Constante.POBRE;
 	}
+	
+	public String obterStringSalarioPorFuncionario() {
+		
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append(this.getNome());
+		sb.append(";");
+		sb.append(this.calcularSalarioLiquido());
+		sb.append("\r\n");
+
+		return sb.toString();
+	}
 
 	public String getNome() {
 		return nome;
