@@ -1,5 +1,10 @@
 package br.edu.infnet.app.testes;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,65 +15,106 @@ import br.edu.infnet.app.dominio.Equipe;
 import br.edu.infnet.app.dominio.Jogador;
 import br.edu.infnet.app.dominio.Profissional;
 import br.edu.infnet.app.exceptions.ContatoInvalidoException;
+import br.edu.infnet.app.exceptions.JogadorInvalidoException;
 import br.edu.infnet.app.exceptions.ProfissionalInvalidoException;
 
 public class EquipeTeste {
 
 	public static void main(String[] args) {
 		
-		Jogador diego = new Jogador();
-		diego.setAnoNascimento(1985);
-		diego.setNome("Diego");
-		diego.setQtdeTituloInternacional(8);
-		diego.setQtdeTituloNacional(12);
+		String dir = "c:/dev/";
+		String arq = "minhasequipes.txt";
 		
-		Jogador maria = new Jogador();
-		maria.setAnoNascimento(1990);
-		maria.setNome("Maria");
-		maria.setQtdeTituloInternacional(9);
-		maria.setQtdeTituloNacional(11);
-
-		Jogador ana = new Jogador();
-		ana.setAnoNascimento(2000);
-		ana.setNome("Ana");
-		ana.setQtdeTituloInternacional(10);
-		ana.setQtdeTituloNacional(13);
-		
-		Contato c1 = new Contato();
-		c1.setEmail("elberth@gmail.com");
-		c1.setTelefone("21999988888");
-
-		Dirigente juninho = new Dirigente();
-		juninho.setAnoInicio(2010);
-		juninho.setContato(c1);
-		juninho.setEhPresidente(false);
-		juninho.setNome("Juninho");	
-		
-		ComissaoTecnica tite = new ComissaoTecnica();
-		tite.setEhTreinador(true);
-		tite.setNome("Tite");
-		tite.setQtdeTitulo(9);		
-		
-		List<Profissional> listaProfissional = new ArrayList<Profissional>();
-		listaProfissional.add(diego);
-		listaProfissional.add(maria);
-		listaProfissional.add(ana);
-		listaProfissional.add(juninho);
-		listaProfissional.add(tite);
-
-		Contato contato = new Contato();
-		contato.setEmail("srn@srn.com");
-		contato.setTelefone("21777766666");
-
 		try {
-			Equipe equipe = new Equipe();
-			equipe.setAnoFundacao(1895);
-			equipe.setContato(contato);
-			equipe.setNome("SRN");
-			equipe.setProfissionais(listaProfissional);
-			equipe.imprimir();
-		} catch (ContatoInvalidoException | ProfissionalInvalidoException e) {
-			System.out.println("[ERROR] " + e.getMessage());
+			FileReader fileR = new FileReader(dir+arq);
+			BufferedReader leitura = new BufferedReader(fileR);
+			
+			FileWriter fileW = new FileWriter(dir+"out_"+arq);
+			BufferedWriter escrita = new BufferedWriter(fileW);
+			
+			String linha = leitura.readLine();
+			
+			String campos[] = null;
+			Equipe equipe = null;
+			List<Profissional> listaProfissional = null;
+
+			while(linha != null) {
+				
+				campos = linha.split(";");
+				
+				switch (campos[0].toUpperCase()) {
+				case "E":
+					listaProfissional = new ArrayList<Profissional>();
+
+					Contato contatoEquipe = new Contato();
+					contatoEquipe.setEmail(campos[3]);
+					contatoEquipe.setTelefone(campos[4]);
+
+					equipe = new Equipe();
+					equipe.setAnoFundacao(Integer.valueOf(campos[2]));
+					equipe.setContato(contatoEquipe);
+					equipe.setNome(campos[1]);
+					equipe.setProfissionais(listaProfissional);
+
+					break;
+
+				case "J":
+					Jogador jogador = new Jogador();
+					jogador.setAnoNascimento(Integer.valueOf(campos[2]));
+					jogador.setNome(campos[1]);
+					jogador.setQtdeTituloInternacional(Integer.valueOf(campos[4]));
+					jogador.setQtdeTituloNacional(Integer.valueOf(campos[3]));
+
+					listaProfissional.add(jogador);
+					
+					break;
+
+				case "T":
+					ComissaoTecnica comissao = new ComissaoTecnica();
+					comissao.setEhTreinador(Boolean.valueOf(campos[2]));
+					comissao.setNome(campos[1]);
+					comissao.setQtdeTitulo(Integer.valueOf(campos[3]));
+
+					listaProfissional.add(comissao);
+					break;
+
+				case "D":
+					Contato contatoDirigente = new Contato();
+					contatoDirigente.setEmail(campos[3]);
+					contatoDirigente.setTelefone(campos[4]);
+
+					Dirigente dirigente = new Dirigente();
+					dirigente.setAnoInicio(Integer.valueOf(campos[2]));
+					dirigente.setContato(contatoDirigente);
+					dirigente.setEhPresidente(Boolean.valueOf(campos[5]));
+					dirigente.setNome(campos[1]);	
+
+					listaProfissional.add(dirigente);
+					break;
+
+				default:
+					System.out.println("Tipo inexistente!!!");
+					break;
+				}
+				
+				linha = leitura.readLine();
+			}
+			
+			try {
+				equipe.imprimir();
+				
+				escrita.write(equipe.obterLinhaGravacao());
+				
+			} catch (ContatoInvalidoException | ProfissionalInvalidoException | JogadorInvalidoException e) {
+				System.out.println("[ERRO] " + e.getMessage());
+			}
+			
+			leitura.close();
+			fileR.close();			
+			escrita.close();
+			fileW.close();
+		} catch (IOException e1) {
+			System.out.println("[ERRO-FILE] " + e1.getMessage());
 		}
 	}
 }

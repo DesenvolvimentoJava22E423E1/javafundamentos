@@ -36,11 +36,11 @@ public class Dirigente extends Profissional {
 	@Override
 	public String toString() {
 
-		return String.format("%d - %s - %s - %s", 
+		return String.format("%s - %d - %s - %s",
+				super.toString(),
 				anoInicio, 
 				ehPresidente ? "presidente=S" : "presidente=N", 
-				contato,
-				super.toString()
+				contato				
 				);
 	}
 

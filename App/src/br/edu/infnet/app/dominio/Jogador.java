@@ -47,7 +47,8 @@ public class Jogador extends Profissional {
 	
 	@Override
 	public String toString() {
-		return String.format("%d - %d - %d", 
+		return String.format("%s - %d - %d - %d",
+				super.toString(),
 				anoNascimento, 
 				qtdeTituloNacional, 
 				qtdeTituloInternacional

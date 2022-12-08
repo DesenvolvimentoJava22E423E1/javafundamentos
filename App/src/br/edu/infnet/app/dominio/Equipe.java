@@ -3,6 +3,7 @@ package br.edu.infnet.app.dominio;
 import java.util.List;
 
 import br.edu.infnet.app.exceptions.ContatoInvalidoException;
+import br.edu.infnet.app.exceptions.JogadorInvalidoException;
 import br.edu.infnet.app.exceptions.ProfissionalInvalidoException;
 
 public class Equipe {
@@ -40,6 +41,31 @@ public class Equipe {
 	@Override
 	public String toString() {
 		return String.format("%s - %d", nome, anoFundacao);
+	}
+	
+	private float calcularFolhaSalarial() throws JogadorInvalidoException {
+		
+		float folhaSalarial = 0;
+		
+		for(Profissional prof : profissionais) {
+			folhaSalarial = folhaSalarial + prof.calcularSalario();
+		}
+		
+		return folhaSalarial;
+	}
+	
+	public String obterLinhaGravacao() throws JogadorInvalidoException {
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append(this.getNome());
+		sb.append(";");
+		sb.append(profissionais.size());
+		sb.append(";");
+		sb.append(this.calcularFolhaSalarial());
+		sb.append(";");
+		sb.append("\r\n");
+		
+		return sb.toString();
 	}
 	
 	public void imprimir() throws ContatoInvalidoException, ProfissionalInvalidoException {

@@ -27,9 +27,9 @@ public class ComissaoTecnica extends Profissional {
 	public String toString() {
 
 		return String.format("%s - %d - %s",
-					ehTreinador ? "treinador=S" : "treinador=N",
+					super.toString(),
 					qtdeTitulo,
-					super.toString()
+					ehTreinador ? "treinador=S" : "treinador=N"
 				);
 	}
 
