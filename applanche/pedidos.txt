@@ -1,0 +1,11 @@
+P;Pedido 1;false;123123123123;elberth@elberth.com;elberth;
+B;123;Energ;10;true;power;500
+C;234;pf;20;arroz, feijao;200;false
+B;234;Coooooffff;5;false;cafezin;100
+S;234;Coooooffff;5;false;cafezin;100
+C;345;filezin;30;peixe com pure;300;true
+B;345;Chope;100;true;brahma;1000
+B;345;Chope;100;true;brahma;25
+S;456;churras;40;churrasquinho;400;false
+C;456;churras;40;churrasquinho;400;false
+C;456;churras;40;churrasquinho;-10;false

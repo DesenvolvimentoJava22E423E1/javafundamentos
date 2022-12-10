@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import br.edu.infnet.applanche.model.exceptions.PedidoSemProdutoException;
+import br.edu.infnet.applanche.model.exceptions.PedidoSemSolicitanteException;
+
 public class Pedido {
 
 	private String descricao;
@@ -12,7 +15,19 @@ public class Pedido {
 	private Solicitante solicitante;
 	private List<Produto> produtos;
 	
-	public Pedido() {
+	public Pedido(Solicitante solicitante, List<Produto> produtos) throws PedidoSemSolicitanteException, PedidoSemProdutoException {
+		
+		if(solicitante == null) {
+			throw new PedidoSemSolicitanteException("Não existe nenhum solicitante associado ao pedido!");
+		}
+		
+		if(produtos == null) {
+			throw new PedidoSemProdutoException("Não existe nenhum produto associado ao pedido!");
+		}
+
+		this.solicitante = solicitante;
+		this.produtos = produtos;
+		
 		data = LocalDateTime.now();
 	}
 	
@@ -24,6 +39,15 @@ public class Pedido {
 		for(Produto p : produtos) {
 			System.out.println("- " + p.getNome());
 		}
+	}
+	
+	public String obterLinha() {	
+		DateTimeFormatter formato = DateTimeFormatter.ofPattern("MM/yyyy");
+		
+		return this.getData().format(formato)+";"+
+			   this.getDescricao()+";"+
+			   this.getSolicitante()+";"+
+			   this.getProdutos().size()+"\r\n";
 	}
 	
 	
@@ -54,14 +78,8 @@ public class Pedido {
 	public Solicitante getSolicitante() {
 		return solicitante;
 	}
-	public void setSolicitante(Solicitante solicitante) {
-		this.solicitante = solicitante;
-	}
 	public List<Produto> getProdutos() {
 		return produtos;
-	}
-	public void setProdutos(List<Produto> produtos) {
-		this.produtos = produtos;
 	}
 	public LocalDateTime getData() {
 		return data;

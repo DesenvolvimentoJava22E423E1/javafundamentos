@@ -7,6 +7,8 @@ import br.edu.infnet.applanche.model.domain.Bebida;
 import br.edu.infnet.applanche.model.domain.Pedido;
 import br.edu.infnet.applanche.model.domain.Produto;
 import br.edu.infnet.applanche.model.domain.Solicitante;
+import br.edu.infnet.applanche.model.exceptions.PedidoSemProdutoException;
+import br.edu.infnet.applanche.model.exceptions.PedidoSemSolicitanteException;
 import br.edu.infnet.applanche.model.exceptions.SolicitanteInvalidoException;
 import br.edu.infnet.applanche.model.exceptions.ValorZeradoException;
 
@@ -54,46 +56,58 @@ public class PedidoTest {
 		}
 
 		try {
-			Pedido p1 = new Pedido();
+			Pedido p1 = new Pedido(new Solicitante("huguinho", "12312312312", "hugo@hugo.com"), produtosP1);
 			p1.setDescricao("Primeiro pedido");
-			p1.setSolicitante(new Solicitante("huguinho", "12312312312", "hugo@hugo.com"));
 			p1.setWeb(false);
-			p1.setProdutos(produtosP1);
 			p1.imprimir();
-		} catch (SolicitanteInvalidoException e) {
+		} catch (SolicitanteInvalidoException | PedidoSemSolicitanteException | PedidoSemProdutoException e) {
 			System.out.println("[ERRO] " + e.getMessage());
 		}
 
 		try {
-			Pedido p2 = new Pedido();
+			Pedido p2 = new Pedido(new Solicitante("zezinho", "12312312312", "ze@ze.com"), produtosP2);
 			p2.setDescricao("Segundo pedido");
-			p2.setSolicitante(new Solicitante("zezinho", "12312312312", "ze@ze.com"));
 			p2.setWeb(true);
-			p2.setProdutos(produtosP2);
 			p2.imprimir();
-		} catch (SolicitanteInvalidoException e) {
+		} catch (SolicitanteInvalidoException | PedidoSemSolicitanteException | PedidoSemProdutoException e) {
 			System.out.println("[ERRO] " + e.getMessage());
 		}
 
 		try {
-			Pedido p3 = new Pedido();
+			Pedido p3 = new Pedido(new Solicitante("luizinho", "12312312312", "luiz@luiz.com"), produtosP3);
 			p3.setDescricao("Terceiro pedido");
-			p3.setSolicitante(new Solicitante("luizinho", "12312312312", "luiz@luiz.com"));
 			p3.setWeb(true);
-			p3.setProdutos(produtosP3);
 			p3.imprimir();
-		} catch (SolicitanteInvalidoException e) {
+		} catch (SolicitanteInvalidoException | PedidoSemSolicitanteException | PedidoSemProdutoException e) {
 			System.out.println("[ERRO] " + e.getMessage());
 		}
 
 		try {
-			Pedido p4 = new Pedido();
+			Pedido p4 = new Pedido(new Solicitante("mariazinha", "12312312312", "maria@maria.com"), produtosP4);
 			p4.setDescricao("Quarto pedido");
-			p4.setSolicitante(new Solicitante("mariazinha", "12312312312", "maria@maria.com"));
 			p4.setWeb(true);
-			p4.setProdutos(produtosP4);
 			p4.imprimir();
-		} catch (SolicitanteInvalidoException e) {
+		} catch (SolicitanteInvalidoException | PedidoSemSolicitanteException | PedidoSemProdutoException e) {
+			System.out.println("[ERRO] " + e.getMessage());
+		}
+
+		try {
+			Pedido p5 = new Pedido(null, produtosP4);
+			p5.setDescricao("Quinto pedido");
+			p5.setWeb(true);
+			p5.imprimir();
+		} catch (PedidoSemSolicitanteException | PedidoSemProdutoException e) {
+			System.out.println("[ERRO] " + e.getMessage());
+		}
+
+		try {
+			Solicitante s6 = new Solicitante("mariazinha", "12312312312", "maria@maria.com");
+		
+			Pedido p6 = new Pedido(s6, null);
+			p6.setDescricao("Sexto pedido");
+			p6.setWeb(true);
+			p6.imprimir();
+		} catch (SolicitanteInvalidoException | PedidoSemSolicitanteException | PedidoSemProdutoException e) {
 			System.out.println("[ERRO] " + e.getMessage());
 		}
 	}
