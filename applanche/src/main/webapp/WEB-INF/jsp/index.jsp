@@ -4,13 +4,13 @@
 <head>
 	<meta charset="ISO-8859-1">
  	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<title>AppLanche</title>
+	<title>AppLanche</title>
 </head>
 <body>
 	<div class="container mt-3">
   		<h2>AppLanche</h2>
   		  		
-  		<h3>Cadastro de <a href="/usuario">usuários</a></h3>
+  		<h3>Cadastro de <a href="/usuario/lista">usuários</a></h3>
 	</div>	
 </body>
 </html>

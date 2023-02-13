@@ -11,11 +11,20 @@ public class Usuario {
 	private int idade;
 	private float salario;
 	
-	public Usuario(String nome, String email) {
-		this.setNome(nome);
-		this.setEmail(email);
+	public Usuario() {
 	}
 	
+	public Usuario(String email, String senha) {
+		this();
+		this.setEmail(email);
+		this.setSenha(senha);
+	}
+	
+	public Usuario(String nome, String email, String senha) {
+		this(email, senha);
+		this.setNome(nome);
+	}
+
 	@Override
 	public String toString() {
 
