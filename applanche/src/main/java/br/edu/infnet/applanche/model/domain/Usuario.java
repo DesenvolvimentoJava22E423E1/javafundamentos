@@ -2,6 +2,7 @@ package br.edu.infnet.applanche.model.domain;
 
 public class Usuario {
 
+	private Integer id;
 	private String nome;
 	private String senha;
 	private String email;
@@ -42,6 +43,12 @@ public class Usuario {
 			);
 	}
 	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	public String getNome() {
 		return nome;
 	}
