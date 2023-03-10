@@ -11,7 +11,7 @@
       <li class="active"><a href="#">Home</a></li>
 	  <c:if test="${not empty usuario}">	
 	      <li><a href="/usuario/lista">Usuário</a></li>
-	      <li><a href="#">Solicitante</a></li>
+	      <li><a href="/solicitante/lista">Solicitante</a></li>
 	      <li><a href="#">Produto</a></li>
 	      <li><a href="#">Bebida</a></li>
 	      <li><a href="#">Comida</a></li>
