@@ -27,6 +27,12 @@ public class Usuario {
 	@OneToMany
 	@JoinColumn(name = "idUsuario")
 	private List<Solicitante> solicitantes;
+	@OneToMany
+	@JoinColumn(name = "idUsuario")
+	private List<Produto> produtos;
+	@OneToMany
+	@JoinColumn(name = "idUsuario")
+	private List<Pedido> pedidos;
 	
 	public Usuario() {
 	}
@@ -118,5 +124,19 @@ public class Usuario {
 	}
 	public void setSolicitantes(List<Solicitante> solicitantes) {
 		this.solicitantes = solicitantes;
+	}
+	public List<Produto> getProdutos() {
+		return produtos;
+	}
+	public void setProdutos(List<Produto> produtos) {
+		this.produtos = produtos;
+	}
+
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
 	}
 }

@@ -12,11 +12,11 @@
 	  <c:if test="${not empty usuario}">	
 	      <li><a href="/usuario/lista">Usuário</a></li>
 	      <li><a href="/solicitante/lista">Solicitante</a></li>
-	      <li><a href="#">Produto</a></li>
-	      <li><a href="#">Bebida</a></li>
+	      <li><a href="/produto/lista">Produto</a></li>
+	      <li><a href="/bebida/lista">Bebida</a></li>
 	      <li><a href="#">Comida</a></li>
 	      <li><a href="#">Sobremesa</a></li>
-	      <li><a href="#">Pedido</a></li>
+	      <li><a href="/pedido/lista">Pedido</a></li>
       </c:if>
     </ul>
     

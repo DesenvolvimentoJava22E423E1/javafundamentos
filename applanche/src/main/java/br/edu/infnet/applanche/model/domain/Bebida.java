@@ -1,13 +1,22 @@
 package br.edu.infnet.applanche.model.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 import br.edu.infnet.applanche.model.exceptions.TamanhoBebidaInvalidoException;
 import br.edu.infnet.applanche.model.exceptions.ValorZeradoException;
 
+@Entity
+@Table(name = "TBebida")
 public class Bebida extends Produto {
 
 	private boolean gelada;
 	private int tamanho;
 	private String marca;
+	
+	public Bebida() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public Bebida(String codigo, String nome, float valor, String marca) throws ValorZeradoException {
 		super(codigo, nome, valor);
@@ -53,5 +62,9 @@ public class Bebida extends Produto {
 	}
 	public String getMarca() {
 		return marca;
+	}
+
+	public void setMarca(String marca) {
+		this.marca = marca;
 	}
 }
