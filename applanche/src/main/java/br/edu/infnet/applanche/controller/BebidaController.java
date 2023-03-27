@@ -54,9 +54,13 @@ public class BebidaController {
 
 		Bebida bebida = bebidaService.obterPorId(id);
 		
-		bebidaService.excluir(id);
-		
-		msg = "A exclusão da bebida "+bebida.getNome()+" foi realizada com sucesso!!!";
+		try {
+			bebidaService.excluir(id);
+			
+			msg = "A exclusão do produto "+bebida.getNome()+" foi realizada com sucesso!!!";
+		} catch (Exception e) {
+			msg = "Impossível realizar a exclusão do produto "+bebida.getNome()+"!!!";
+		}
 
 		return "redirect:/bebida/lista";
 	}

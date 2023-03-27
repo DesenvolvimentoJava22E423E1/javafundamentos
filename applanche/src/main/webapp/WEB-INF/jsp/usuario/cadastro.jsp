@@ -13,6 +13,15 @@
 	<c:import url="/WEB-INF/jsp/menu.jsp"/>
 
 	<div class="container">
+	
+		<form action="/cep" class="form-inline" method="post">
+		
+			<label>Cep:</label> 	
+			<input type="text" name="cep" value="20010020" class="form-control">
+
+			<button type="submit" class="btn btn-primary">Buscar</button>
+		</form>
+	
 		<form action="/usuario/incluir" method="post">
 			<h3>Cadastro de Usuário</h3>
 		
@@ -87,6 +96,9 @@
 					<option value="3" selected>Desenvolvimento</option>
 				</select>
 			</div>
+			
+			<c:import url="/WEB-INF/jsp/endereco/cadastro.jsp"/>
+			
 			<button type="submit">Cadastrar</button>
 		</form>
 	</div>

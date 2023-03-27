@@ -41,9 +41,14 @@
 			      <th>Setor</th>
 			      <th>Idade</th>
 			      <th>Salário</th>
+			      <th>Admin</th>
+			      <th>Endereço</th>
 			      <th>Solicitantes</th>
 			      <th>Produtos</th>
-			      <th></th>
+			      <th>Pedidos</th>	
+			      <c:if test="${usuario.admin}">		      
+			      	<th></th>		
+			      </c:if>	  
 			    </tr>
 			  </thead>
 			  <tbody>
@@ -59,9 +64,14 @@
 				      <td>${u.setor}</td>
 				      <td>${u.idade}</td>
 				      <td>${u.salario}</td>
+				      <td>${u.admin}</td>
+				      <td>${u.endereco}</td>
 				      <td>${u.solicitantes.size()}</td>
 				      <td>${u.produtos.size()}</td>
-				      <td><a href="/usuario/${u.id}/excluir">excluir</a></td>
+				      <td>${u.pedidos.size()}</td>				      
+				      <c:if test="${usuario.admin}">
+			      	  <td><a href="/usuario/${u.id}/excluir">excluir</a></td>
+			      	  </c:if>
 				    </tr>
 			    </c:forEach>
 			  </tbody>

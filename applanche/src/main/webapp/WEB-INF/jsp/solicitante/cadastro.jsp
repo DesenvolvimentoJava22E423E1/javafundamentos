@@ -29,6 +29,8 @@
 				<label>E-mail:</label>
 				<input type="email" name="email" value="elberth@gmail.com" class="form-control">
 			</div>
+			
+			<c:import url="/WEB-INF/jsp/endereco/cadastro.jsp"/>			
 
 			<button type="submit">Cadastrar</button>
 		</form>

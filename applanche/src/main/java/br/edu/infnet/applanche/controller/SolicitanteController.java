@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+import br.edu.infnet.applanche.model.domain.Endereco;
 import br.edu.infnet.applanche.model.domain.Solicitante;
 import br.edu.infnet.applanche.model.domain.Usuario;
 import br.edu.infnet.applanche.model.service.SolicitanteService;
@@ -38,9 +39,13 @@ public class SolicitanteController {
 	}
 
 	@PostMapping(value = "/solicitante/incluir")
-	public String incluir(Solicitante solicitante, @SessionAttribute("usuario") Usuario usuario) {
+	public String incluir(Solicitante solicitante, Endereco endereco, @SessionAttribute("usuario") Usuario usuario) {
 		
 		solicitante.setUsuario(usuario);
+		
+		solicitante.setEndereco(endereco);
+		
+		System.out.println("Bairro do Solicitante: " + solicitante.getEndereco().getBairro());
 
 		solicitanteService.incluir(solicitante);
 		
@@ -52,9 +57,13 @@ public class SolicitanteController {
 	@GetMapping(value = "/solicitante/{id}/excluir")
 	public String excluir(@PathVariable Integer id) {
 
-		solicitanteService.excluir(id);
-		
-		msg = "A exclusão do solicitante ("+id+") foi realizada com sucesso!!!";
+		try {
+			solicitanteService.excluir(id);
+			
+			msg = "A exclusão do solicitante ("+id+") foi realizada com sucesso!!!";
+		} catch (Exception e) {
+			msg = "Impossível realizar a exclusão do solicitante ("+id+")!!!";
+		}
 
 		return "redirect:/solicitante/lista";
 	}

@@ -36,10 +36,14 @@ public class ProdutoController {
 
 		Produto produto = produtoService.obterPorId(id);
 		
-		produtoService.excluir(id);
+		try {
+			produtoService.excluir(id);
+			
+			msg = "A exclusão do produto "+produto.getNome()+" foi realizada com sucesso!!!";
+		} catch (Exception e) {
+			msg = "Impossível realizar a exclusão do produto "+produto.getNome()+"!!!";
+		}
 		
-		msg = "A exclusão do produto "+produto.getNome()+" foi realizada com sucesso!!!";
-
 		return "redirect:/produto/lista";
 	}
 }

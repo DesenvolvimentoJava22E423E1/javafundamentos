@@ -1,11 +1,13 @@
 package br.edu.infnet.applanche.model.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import br.edu.infnet.applanche.model.exceptions.SolicitanteInvalidoException;
@@ -22,6 +24,9 @@ public class Solicitante {
 	@ManyToOne
 	@JoinColumn(name = "idUsuario")
 	private Usuario usuario;
+	@OneToOne(cascade = CascadeType.PERSIST) 
+	@JoinColumn(name = "idEndereco")
+	private Endereco endereco;
 	
 	public Solicitante() {
 	}
@@ -99,6 +104,14 @@ public class Solicitante {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
 	}
 	
 }

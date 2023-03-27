@@ -24,6 +24,7 @@ public class UsuarioLoader implements ApplicationRunner {
 		userAdmin.setSalario(9999);
 		userAdmin.setSetor("Administracao");
 		userAdmin.setTipo("Admin");
+		userAdmin.setAdmin(true);
 
 		usuarioService.incluir(userAdmin);
 		

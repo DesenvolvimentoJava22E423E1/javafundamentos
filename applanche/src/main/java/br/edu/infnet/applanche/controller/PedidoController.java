@@ -11,17 +11,28 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import br.edu.infnet.applanche.model.domain.Pedido;
 import br.edu.infnet.applanche.model.domain.Usuario;
 import br.edu.infnet.applanche.model.service.PedidoService;
+import br.edu.infnet.applanche.model.service.ProdutoService;
+import br.edu.infnet.applanche.model.service.SolicitanteService;
 
 @Controller
 public class PedidoController {
 	
 	@Autowired
 	private PedidoService pedidoService;
+	@Autowired
+	private SolicitanteService solicitanteService;
+	@Autowired
+	private ProdutoService produtoService;
 
 	private String msg;
 
 	@GetMapping(value = "/pedido")
-	public String telaCadastro() {
+	public String telaCadastro(Model model, @SessionAttribute("usuario") Usuario usuario) {
+		
+		model.addAttribute("solicitantes", solicitanteService.obterLista(usuario));
+				
+		model.addAttribute("produtos", produtoService.obterLista(usuario));
+
 		return "pedido/cadastro";
 	}	
 
@@ -43,7 +54,7 @@ public class PedidoController {
 		pedido.setUsuario(usuario);
 
 		pedidoService.incluir(pedido);
-		
+
 		msg = "A inclusão do pedido "+pedido.getDescricao()+" foi realizada com sucesso!!!";
 		
 		return "redirect:/pedido/lista";
